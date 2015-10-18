@@ -7,7 +7,7 @@ As I rely completely on my own materials and not on the babylon materials there 
 
 ## Include it in your project
 
-Just take the "babylon.objloader.js" from the "dist" directory and add a <script> tag for it :) If you have a es 2015 compatible browser you can also take
+Just take the "babylon.objloader.js" from the "dist" directory and add a &lt;script&gt; tag for it :) If you have a es 2015 compatible browser you can also take
 the es6 variant.
 
 The cjs.js can be used if you have for example a webpack workflow. As it properly referenced in the package.json this should work out of the box.
