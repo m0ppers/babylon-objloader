@@ -76,27 +76,42 @@ class OBJLoader {
 				parseFloat(vertices[5]),
 			];
 		}
+		
+		let createObject = function(name) {
+			return {
+				name,
+				'vertices': [],
+				'normals': [],
+				'faces': [],
+				'uvs': [],
+			};
+		};
+
 		let parser = {
+			'checkObject': function() {
+				// mop: for cases where we don't have an object descriptor we create it if necessary
+				if (!this.currentObject) {
+					this.currentObject = createObject(undefined);
+					this.parsedObjects.push(this.currentObject);
+				}
+			},
 			'parsedObjects': [],
 			'instruction_o': function(data) {
 				// mop: reset everything
-				this.currentObject = {
-					'name': data,
-					'vertices': [],
-					'normals': [],
-					'faces': [],
-					'uvs': [],
-				};
+				this.currentObject = createObject(data);
 				this.parsedObjects.push(this.currentObject);
 			},
 			'instruction_#': function() {},
 			'instruction_vn': function(data) {
+				this.checkObject();
 				this.currentObject.normals.push(extractVertices(data));
 			},
 			'instruction_v': function(data) {
+				this.checkObject();
 				this.currentObject.vertices.push(extractVertices(data));
 			},
 			'instruction_f': function(data) {
+				this.checkObject();
 				let parts = data.match(/[^\s]+/g);
 				let face = parts.map((vertexDef) => {
 					let indices = vertexDef.split('/');
@@ -121,6 +136,7 @@ class OBJLoader {
 				this.currentObject.faces.push(face);
 			},
 			'instruction_vt': function(data) {
+				this.checkObject();
 				let uvs = data.match(/^(\d+(\.\d+)?)\s+(\d+(\.\d+)?)$/);
 				this.currentObject.uvs.push([parseFloat(uvs[1]), parseFloat(uvs[3])]);
 			},

@@ -83,27 +83,42 @@ var OBJLoader = (function () {
 				var vertices = data.match(/^(-?\d+(\.\d+)?)\s*(-?\d+(\.\d+)?)\s*(-?\d+(\.\d+)?)/);
 				return [parseFloat(vertices[1]), parseFloat(vertices[3]), parseFloat(vertices[5])];
 			};
+
+			var createObject = function createObject(name) {
+				return {
+					name: name,
+					'vertices': [],
+					'normals': [],
+					'faces': [],
+					'uvs': []
+				};
+			};
+
 			var parser = {
+				'checkObject': function checkObject() {
+					// mop: for cases where we don't have an object descriptor we create it if necessary
+					if (!this.currentObject) {
+						this.currentObject = createObject(undefined);
+						this.parsedObjects.push(this.currentObject);
+					}
+				},
 				'parsedObjects': [],
 				'instruction_o': function instruction_o(data) {
 					// mop: reset everything
-					this.currentObject = {
-						'name': data,
-						'vertices': [],
-						'normals': [],
-						'faces': [],
-						'uvs': []
-					};
+					this.currentObject = createObject(data);
 					this.parsedObjects.push(this.currentObject);
 				},
 				'instruction_#': function instruction_() {},
 				'instruction_vn': function instruction_vn(data) {
+					this.checkObject();
 					this.currentObject.normals.push(extractVertices(data));
 				},
 				'instruction_v': function instruction_v(data) {
+					this.checkObject();
 					this.currentObject.vertices.push(extractVertices(data));
 				},
 				'instruction_f': function instruction_f(data) {
+					this.checkObject();
 					var parts = data.match(/[^\s]+/g);
 					var face = parts.map(function (vertexDef) {
 						var indices = vertexDef.split('/');
@@ -128,6 +143,7 @@ var OBJLoader = (function () {
 					this.currentObject.faces.push(face);
 				},
 				'instruction_vt': function instruction_vt(data) {
+					this.checkObject();
 					var uvs = data.match(/^(\d+(\.\d+)?)\s+(\d+(\.\d+)?)$/);
 					this.currentObject.uvs.push([parseFloat(uvs[1]), parseFloat(uvs[3])]);
 				},
