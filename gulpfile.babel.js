@@ -5,7 +5,7 @@ let rename = require('gulp-rename');
 let uglify = require('gulp-uglify');
 
 gulp.task('build', function() {
-	return gulp.src('src/register.js', {read: false})
+	return gulp.src('src/register.js', {read: false, base: './'})
 		.pipe(rollup({}))
 		.pipe(rename('babylon.objloader.es6.js'))
         .pipe(gulp.dest('dist'))
