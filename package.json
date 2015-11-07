@@ -1,6 +1,6 @@
 {
   "name": "babylon-objloader",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "main": "dist/cjs.js",
   "jsnext:main": "src/babylon.objloader.js",
