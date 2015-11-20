@@ -1,9 +1,16 @@
-/*global BABYLON */
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function (global){
 "use strict";
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var _babylonjs = (typeof window !== "undefined" ? window['BABYLON'] : typeof global !== "undefined" ? global['BABYLON'] : null);
+
+var _babylonjs2 = _interopRequireDefault(_babylonjs);
 
 var OBJLoader = (function () {
 	function OBJLoader() {
@@ -28,8 +35,8 @@ var OBJLoader = (function () {
 				});
 			}
 			foundObjects.forEach(function (object) {
-				var mesh = new BABYLON.Mesh(object.name, scene);
-				var vertexData = new BABYLON.VertexData();
+				var mesh = new _babylonjs2["default"].Mesh(object.name, scene);
+				var vertexData = new _babylonjs2["default"].VertexData();
 				var positions = [];
 				var normals = [];
 				var uvs = [];
@@ -66,9 +73,9 @@ var OBJLoader = (function () {
 				// faces are differently aligned so we are drawing on the wrong side :S
 				indices.reverse();
 
-				vertexData.set(uvs, BABYLON.VertexBuffer.UVKind);
-				vertexData.set(positions, BABYLON.VertexBuffer.PositionKind);
-				vertexData.set(normals, BABYLON.VertexBuffer.NormalKind);
+				vertexData.set(uvs, _babylonjs2["default"].VertexBuffer.UVKind);
+				vertexData.set(positions, _babylonjs2["default"].VertexBuffer.PositionKind);
+				vertexData.set(normals, _babylonjs2["default"].VertexBuffer.NormalKind);
 				vertexData.indices = indices;
 
 				vertexData.applyToMesh(mesh);
@@ -184,5 +191,7 @@ var OBJLoader = (function () {
 	return OBJLoader;
 })();
 
-BABYLON.OBJLoader = OBJLoader;
-BABYLON.SceneLoader.RegisterPlugin(new OBJLoader());
+_babylonjs2["default"].OBJLoader = OBJLoader;
+_babylonjs2["default"].SceneLoader.RegisterPlugin(new OBJLoader());
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{}]},{},[1]);
