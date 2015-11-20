@@ -19,12 +19,27 @@
     "url": "https://github.com/m0ppers/babylon-objloader/issues"
   },
   "homepage": "https://github.com/m0ppers/babylon-objloader#readme",
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  },
+  "browserify-shim": {
+    "babylonjs": "global:BABYLON"
+  },
   "devDependencies": {
     "babel-core": "^5.8.25",
+    "browserify": "^12.0.1",
+    "browserify-shim": "^3.8.11",
     "gulp": "^3.9.0",
     "gulp-babel": "^5.3.0",
     "gulp-rename": "^1.2.2",
     "gulp-rollup": "^1.0.1",
-    "gulp-uglify": "^1.4.2"
+    "gulp-uglify": "^1.4.2",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  },
+  "dependencies": {
+    "babylonjs": "^2.2.0"
   }
 }

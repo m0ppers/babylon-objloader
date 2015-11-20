@@ -1,4 +1,5 @@
-/*global BABYLON */
+import BABYLON from 'babylonjs';
+
 class OBJLoader {
 	constructor() {
 		this.extensions = ".obj";
