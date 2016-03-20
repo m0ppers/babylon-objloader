@@ -149,7 +149,7 @@ var OBJLoader = (function () {
 				},
 				'instruction_vt': function instruction_vt(data) {
 					this.checkObject();
-					var uvs = data.match(/^(\d+(\.\d+)?)\s+(\d+(\.\d+)?)$/);
+					var uvs = data.match(/^(-?\d+(\.\d+)?)\s+(-?\d+(\.\d+)?)$/);
 					this.currentObject.uvs.push([parseFloat(uvs[1]), parseFloat(uvs[3])]);
 				},
 				'instruction_s': function instruction_s(data) {
